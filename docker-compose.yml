@@ -1,0 +1,15 @@
+# Optional local database only. The Streamlit app still runs on your machine.
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?Set POSTGRES_USER in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-leadpilot}
+    ports:
+      - "5432:5432"
+    volumes:
+      - leadpilot_pg:/var/lib/postgresql/data
+
+volumes:
+  leadpilot_pg:
